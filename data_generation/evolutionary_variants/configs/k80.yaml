@@ -1,0 +1,39 @@
+# Paths are relative to the repository root.
+output_dir: assets/training_data/synthetic/generated
+assets_dir: assets/training_data/synthetic/generation_inputs
+wt_human_path: assets/training_data/synthetic/generation_inputs/wt_human.pkl
+wt_mouse_path: assets/training_data/synthetic/generation_inputs/wt_mouse.pkl
+fm_pool_dir: assets/training_data/synthetic/generation_inputs/fm_seq
+
+# Consumed by the downstream embedding and teacher-prediction stages of the
+# original end-to-end ablation pipeline.
+backbone_weights: assets/checkpoints/backbone/pretrained_step13500.pt
+teacher_model: assets/checkpoints/teacher/privileged_teacher.pkl
+n_workers: 8
+n_genes: null
+random_seed: 42
+variant_scope: training_anchors_only
+variant_class: local_multi_substitution
+
+k80:
+  species: [human, mouse]
+  kappa: 2.08
+  t_max: 2.0
+  step_size: 0.01
+
+  # Keep even mutation indices, yielding 100 K80 mutants per WT with the
+  # t_max/step_size settings above. Use null to keep every index.
+  mut_range: null
+  mut_mod: 2
+
+  use_conservation: true
+  conservation_weight: 0.25
+
+  # free: unrestricted CDS base substitutions
+  # strict: synonymous codon substitutions only
+  cds_mode: free
+  use_cub: true
+  cub_weight: 0.5
+
+  # Human-only FM UTR replacements, assigned mut201..mut215.
+  n_fm_mutants: 15

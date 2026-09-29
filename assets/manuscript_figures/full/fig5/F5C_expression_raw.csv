@@ -1,0 +1,11 @@
+Variant,replicate,protein_concentration_ng_ml
+ref,Unmod_R1,0.6228696
+ref,Unmod_R2,0.6453444
+MUT3,Unmod_R1,1.002444
+MUT3,Unmod_R2,1.0598796
+MUT6,Unmod_R1,1.0448964
+MUT6,Unmod_R2,1.1073264
+MUT15,Unmod_R1,1.0973376
+MUT15,Unmod_R2,0.9574944
+MUT17,Unmod_R1,1.1073264
+MUT17,Unmod_R2,1.1847396

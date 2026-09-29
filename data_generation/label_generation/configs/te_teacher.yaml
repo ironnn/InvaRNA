@@ -1,0 +1,34 @@
+label_col: mean_te
+expected_feature_count: 3274
+feature_groups:
+  backbone_embedding: 3072
+  codon_frequency: 64
+  utr5_3mer_frequency: 64
+  amino_acid_frequency: 21
+  half_life: 1
+  nucleotide_percentages: 8
+  log_region_lengths: 4
+  kozak: 20
+  dicodon: 20
+non_feature_columns:
+  [transcript_id, gene_id, species, mrna, utr5_size, cds_size, utr3_size,
+   data_type, split, variant_source, mut_step]
+model:
+  type: lightgbm
+  objective: regression
+  metric: rmse
+  n_estimators: 25000
+  best_iteration: 24980
+  learning_rate: 0.013021789810756048
+  num_leaves: 63
+  max_depth: 10
+  min_child_samples: 89
+  subsample: 0.7670546800664664
+  subsample_freq: 1
+  colsample_bytree: 0.6300221501639626
+  reg_alpha: 1.437708460113417
+  reg_lambda: 1.1619642294926453
+  early_stopping_rounds: 1500
+  random_state: 111
+  n_jobs: 64
+output: assets/checkpoints/teacher/privileged_teacher.pkl

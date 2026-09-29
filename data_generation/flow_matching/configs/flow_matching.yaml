@@ -1,0 +1,14 @@
+output_dir: assets/training_data/synthetic/generated
+assets_dir: assets/training_data/synthetic/generation_inputs
+wt_human_path: assets/training_data/synthetic/generation_inputs/wt_human.pkl
+fm_pool_dir: assets/training_data/synthetic/generation_inputs/fm_seq
+n_workers: 8
+n_genes: null
+random_seed: 42
+species: [human]
+variant_scope: training_anchors_only
+variant_class: non_local_utr_replacement
+n_variants_per_anchor: 15
+wt_anchoring: false
+distance_scaling: false
+training_label: absolute_teacher_prediction

@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: lucaone
+Version: 1.1.1
+Summary: LucaOne: LucaGPLM Model compatible with HuggingFace Transformers
+Author: YongHe
+Author-email: YongHe <sanyuan.hy@alibaba-inc.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: torch>=1.13.1
+Requires-Dist: transformers>=4.26.0
+Dynamic: author

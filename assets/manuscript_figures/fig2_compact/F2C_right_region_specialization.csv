@@ -1,0 +1,9 @@
+region,expert,mean_expert_probability
+5'UTR,Single-base,0.504427433
+5'UTR,Codon,0.132047534
+5'UTR,9-mer,0.3010688126
+5'UTR,Ribosome,0.06245621666
+CDS + 3'UTR,Single-base,0.2777613401
+CDS + 3'UTR,Codon,0.3135090768
+CDS + 3'UTR,9-mer,0.3036232293
+CDS + 3'UTR,Ribosome,0.1051063538

@@ -1,0 +1,11 @@
+{
+  "human_total": 11147,
+  "human_train": 8917,
+  "human_val": 1115,
+  "human_test": 1115,
+  "mouse_train": 11433,
+  "mixed_train_total": 20350,
+  "split_ratio": "80/10/10",
+  "seed": 111,
+  "label": "mean_te (translation efficiency)"
+}

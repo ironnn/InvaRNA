@@ -1,0 +1,15 @@
+magnification,group_1,group_2,significance
+10x,ONC,ONC-EGFP,*
+10x,ONC,NGF-Ref-500ng,****
+10x,ONC,NGF-MUT17-100ng,****
+10x,ONC,NGF-MUT17-500ng,****
+10x,NGF-Ref-500ng,NGF-MUT17-100ng,ns
+10x,NGF-MUT17-100ng,NGF-MUT17-500ng,***
+10x,NGF-Ref-500ng,NGF-MUT17-500ng,**
+20x,ONC,ONC-EGFP,ns
+20x,ONC,NGF-Ref-500ng,****
+20x,ONC,NGF-MUT17-100ng,**
+20x,ONC,NGF-MUT17-500ng,****
+20x,NGF-Ref-500ng,NGF-MUT17-100ng,ns
+20x,NGF-MUT17-100ng,NGF-MUT17-500ng,*
+20x,NGF-Ref-500ng,NGF-MUT17-500ng,**

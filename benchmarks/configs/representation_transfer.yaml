@@ -1,0 +1,51 @@
+input: frozen_backbone_embeddings
+probe: lightgbm_regressor
+tasks: [mean_ribosome_load, mrna_half_life, expression_level]
+selection_metric: mean_validation_r2_across_backbones
+same_hyperparameters_for_all_backbones: true
+backbone_finetuning: false
+test_labels_used_for_selection: false
+split_units:
+  mean_ribosome_load: official_sequence_split
+  mrna_half_life: gene_disjoint
+  expression_level: official_human_gene_id
+random_seed: 111
+lightgbm_hyperparameters:
+  mean_ribosome_load:
+    learning_rate: 0.01
+    n_estimators: 1200
+    num_leaves: 40
+    max_depth: 11
+    min_child_samples: 26
+    subsample: 0.82
+    colsample_bytree: 0.3
+    reg_alpha: 0.2
+    reg_lambda: 0.8
+    early_stopping_rounds: 50
+  mrna_half_life:
+    selected_candidate: C2_Trial30
+    learning_rate: 0.009739736500790191
+    n_estimators: 25000
+    num_leaves: 61
+    max_depth: 10
+    min_child_samples: 91
+    subsample: 0.7749148157782488
+    colsample_bytree: 0.5891108246163971
+    reg_alpha: 1.4339287547146289
+    reg_lambda: 1.231808497941
+    subsample_freq: 1
+    early_stopping_rounds: 1500
+  expression_level:
+    selected_candidate: C5
+    learning_rate: 0.013123632536390602
+    n_estimators: 25000
+    num_leaves: 61
+    max_depth: 10
+    min_child_samples: 93
+    subsample: 0.7670668119117988
+    colsample_bytree: 0.5739627990921417
+    reg_alpha: 1.4706547247718655
+    reg_lambda: 0.8259385167562873
+    subsample_freq: 1
+    early_stopping_rounds: 1500
+full_parameter_record: benchmarks/configs/fig2.yaml

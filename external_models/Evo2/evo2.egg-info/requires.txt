@@ -1,0 +1,4 @@
+biopython
+huggingface_hub
+torch
+vtx>=0.0.8

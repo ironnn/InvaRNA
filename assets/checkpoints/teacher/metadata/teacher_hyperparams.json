@@ -1,0 +1,18 @@
+{
+  "objective": "regression",
+  "metric": "rmse",
+  "n_estimators": 25000,
+  "best_iteration": 24980,
+  "learning_rate": 0.013021789810756048,
+  "num_leaves": 63,
+  "max_depth": 10,
+  "min_child_samples": 89,
+  "subsample": 0.7670546800664664,
+  "subsample_freq": 1,
+  "colsample_bytree": 0.6300221501639626,
+  "reg_alpha": 1.437708460113417,
+  "reg_lambda": 1.1619642294926453,
+  "early_stopping_rounds": 1500,
+  "random_state": 111,
+  "n_jobs": 64
+}

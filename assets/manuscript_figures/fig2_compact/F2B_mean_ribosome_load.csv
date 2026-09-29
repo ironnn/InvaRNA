@@ -1,0 +1,8 @@
+model,Model,test_r2,is_invarna_backbone,plot_color
+invarna,InvaRNA backbone,0.37584,True,#E64B35
+lucaone,LucaOne,0.23582,False,#808183
+orthrus,Orthrus,0.21404,False,#808183
+mrnabert,mRNABERT,0.20117,False,#808183
+dnabert2,DNABERT-2,0.18985,False,#808183
+rnafm,RNA-FM,0.09413,False,#808183
+evo2,Evo2,0.03094,False,#808183

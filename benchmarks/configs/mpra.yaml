@@ -1,0 +1,13 @@
+model: final_tdc
+group_col: sample
+truth_col: ribosome_loading
+prediction_col: pred_final_tdc
+input: assets/benchmark_data/mpra/fig3g/input/mpra_input_100k_per_library.parquet
+n_total: 1000000
+n_libraries: 10
+sample_per_library: 100000
+sampling_seed: 42
+fig3_panel_g_sample_per_library: 3000
+fig3_panel_g_config: benchmarks/configs/fig3_panel_g.yaml
+metric: spearman
+used_for_training_or_selection: false

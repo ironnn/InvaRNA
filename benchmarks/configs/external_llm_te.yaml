@@ -1,0 +1,73 @@
+benchmark: external_llm_full_parameter_te_finetuning
+seed: 2222
+data_dir: assets/training_data/common_te_splits
+train_splits: [human_train_wt.parquet, mouse_train_wt.parquet]
+validation_split: human_val_wt.parquet
+test_split: human_test_wt.parquet
+target: mean_te
+selection_rule: highest_validation_r2
+metric: sklearn.metrics.r2_score
+
+# These values and paths are copied from the selected completed runs. The current
+# 2026-08-05 nm.pdf uses Evo2-8k.
+models:
+  codonbert:
+    region: cds
+    max_len: 1024
+    checkpoint: assets/checkpoints/external/te_finetuned/codonbert/best.ckpt
+    test_r2: 0.5171
+  dnabert2:
+    region: mrna_5prime
+    max_len: 1024
+    checkpoint: assets/checkpoints/external/te_finetuned/dnabert2/best.ckpt
+    test_r2: 0.5371
+    historical_comparison: true
+  evo2_8k:
+    region: mrna_5prime
+    max_len: 8000
+    checkpoint: assets/checkpoints/external/te_finetuned/evo2_8k/best.pt
+    validation_r2: 0.7516953211040995
+    test_r2: 0.7303000306442183
+    manuscript_comparison: true
+  lucaone:
+    region: mrna_5prime
+    max_len: 1280
+    checkpoint: assets/checkpoints/external/te_finetuned/lucaone/best.ckpt
+    test_r2: 0.4552
+  mrnabert:
+    region: mrna_5prime
+    max_len: 1024
+    checkpoint: assets/checkpoints/external/te_finetuned/mrnabert/best.ckpt
+    test_r2: 0.3113
+  orthrus:
+    region: mrna_5prime
+    max_len: 1024
+    checkpoint: assets/checkpoints/external/te_finetuned/orthrus/best.ckpt
+    test_r2: 0.5635
+  ribonn:
+    region: full_transcript_aligned_to_start_codon
+    max_utr5_len: 1381
+    max_cds_utr3_len: 11937
+    checkpoint: assets/checkpoints/external/te_finetuned/ribonn/best.pt
+    test_r2: 0.6164582193177239
+  rnafm:
+    region: mrna_5prime
+    max_len: 1024
+    checkpoint: assets/checkpoints/external/te_finetuned/rnafm/best.ckpt
+    test_r2: 0.3885
+  utrlm:
+    region: utr5_last_100nt
+    max_len: 100
+    checkpoint: assets/checkpoints/external/te_finetuned/utrlm/best.ckpt
+    test_r2: 0.1674
+  invarna_human_mouse:
+    region: fixed_frame_5utr_cds_3utr
+    fixed_frame: [1024, 4096, 3072]
+    checkpoint: assets/checkpoints/external/te_finetuned/invarna_human_mouse/best.ckpt
+    test_r2: 0.7061
+
+manuscript_final_invarna:
+  note: >-
+    The current manuscript InvaRNA value (0.7508; displayed as 0.751) uses the final synthetic/TDC student,
+    not the human+mouse-only checkpoint in this external-model training matrix.
+  config: sft/configs/tdc_final.yaml

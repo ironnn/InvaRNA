@@ -1,0 +1,33 @@
+experiment: species_ablation_human_mouse_rbh_filtered
+train_sources: [human_wt, mouse_wt_rbh_filtered]
+train_data: assets/benchmark_data/rbh_sensitivity/full/data/human_mouse_rbh_filtered_wt.parquet
+validation_data: assets/training_data/common_te_splits/human_val_wt.parquet
+test_data: assets/training_data/common_te_splits/human_test_wt.parquet
+label_col: mean_te
+evaluation_label_col: mean_te
+seed: 22222
+training:
+  backbone_weights: assets/checkpoints/backbone/pretrained_step13500.pt
+  backbone_lr: 5.0e-6
+  head_lr: 1.0e-3
+  max_epochs: 50
+  batch_size: 12
+  accumulate_grad_batches: 4
+  devices: 2
+  num_workers: 4
+  precision: bf16-mixed
+  matmul_precision: high
+  dynamic_sampling: false
+  epoch_synthetic_sample_size: 0
+  real_copy_factor: 0
+selection:
+  metric: val_r2_global
+  mode: max
+  selected_epoch: 15
+  checkpoint: assets/checkpoints/ablations/rbh_sensitivity/human_mouse_rbh_filtered_seed22222.ckpt
+leakage:
+  split_unit: gene_id
+  mouse_rbh_homologs_of_human_validation_test_removed: true
+  validation_test_species: human
+  validation_test_used_for_training_or_labels: false
+  external_evaluation_used_for_selection: false

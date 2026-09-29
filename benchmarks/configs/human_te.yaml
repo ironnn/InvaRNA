@@ -1,0 +1,10 @@
+model: final_tdc
+truth_col: mean_te
+prediction_col: pred_InvaRNA0412
+input: assets/benchmark_data/human_te/human_test_wt.parquet
+split: held_out_human_test
+split_unit: gene_id
+n: 1115
+primary_metric: r2
+secondary_metrics: [spearman, pearson]
+used_for_model_selection: false

@@ -1,0 +1,53 @@
+figure_data: assets/manuscript_figures/full/fig3_current_nm
+
+panel_b:
+  input: F3B_three_model_predictions_merged.csv
+  source_predictions:
+    InvaRNA0412: F3B_pred_invarna0412.csv
+    RiboNN: F3B_pred_ribonn.csv
+    UTR-LM: F3B_pred_utrlm.csv
+  truth_column: true_te
+  prediction_columns:
+    InvaRNA0412: pred_invarna0412
+    RiboNN: pred_ribonn
+    UTR-LM: pred_utrlm
+  displayed_species: [H.sapiens, M.musculus, R.norvegicus, D.rerio, C.elegans]
+  excluded_diagnostic_species: [D.melanogaster]
+  metric: spearman
+  expected:
+    InvaRNA0412:
+      H.sapiens: 0.4899151912055547
+      M.musculus: 0.41635864828030145
+      R.norvegicus: 0.5876806253590225
+      D.rerio: 0.1190632786898212
+      C.elegans: 0.3139777000964238
+    RiboNN:
+      H.sapiens: 0.3298530858430503
+      M.musculus: 0.20897997347615416
+      R.norvegicus: 0.430858945937339
+      D.rerio: 0.06059989094272078
+      C.elegans: 0.2113807686623275
+    UTR-LM:
+      H.sapiens: 0.2538923133392083
+      M.musculus: 0.1737232317100682
+      R.norvegicus: 0.22048581246407278
+      D.rerio: 0.10017256578984801
+      C.elegans: 0.0835877777314695
+
+panel_f:
+  input: F3F_heldout_human_TE_prediction_R2.csv
+  evo2_run: evo2_8k
+  expected_top_models:
+    RiboNN: 0.6164582193177239
+    Evo2: 0.7303000306442183
+    InvaRNA: 0.7508
+
+panel_g:
+  config: benchmarks/configs/fig3_panel_g.yaml
+  expected_mean_spearman:
+    UTR-LM: 0.08553880569210122
+    RiboNN: 0.2596562194968213
+    InvaRNA: 0.35321597527854875
+
+validation:
+  metric_tolerance: 1.0e-12

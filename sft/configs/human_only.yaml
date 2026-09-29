@@ -1,0 +1,25 @@
+experiment: human_only
+train_sources: [human_wt]
+train_data: assets/processed/te/human_train_wt.parquet
+validation_data: assets/processed/te/human_val_wt.parquet
+test_data: assets/processed/te/human_test_wt.parquet
+label_col: mean_te
+evaluation_label_col: mean_te
+seed: NEEDS_AUTHOR_CONFIRMATION
+training: &training
+  backbone_weights: assets/checkpoints/backbone/pretrained_step13500.pt
+  backbone_lr: 5.0e-6
+  head_lr: 1.0e-3
+  max_epochs: 30
+  batch_size: 12
+  accumulate_grad_batches: 4
+  devices: 8
+  num_workers: 4
+  precision: bf16-mixed
+  matmul_precision: high
+  dynamic_sampling: false
+leakage:
+  split_unit: gene_id
+  synthetic_anchors: training_only
+  validation_test_used_for_labels: false
+  external_evaluation_used_for_selection: false

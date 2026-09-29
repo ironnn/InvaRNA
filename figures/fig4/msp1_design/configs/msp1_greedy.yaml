@@ -1,0 +1,10 @@
+gene: MSP1
+host_context: ADH1_3UTR
+region: inserted_MSP1_dORF_like_sequence
+model: final_tdc
+action_space: single_nucleotide_substitutions_in_insert_only
+objective: predicted_TE_only
+strategy: greedy
+stopping_rule: stop_when_no_single_substitution_improves_score
+max_steps: NEEDS_AUTHOR_CONFIRMATION
+seed: NEEDS_AUTHOR_CONFIRMATION

@@ -1,0 +1,23 @@
+experiment: wt_anchor_ablation
+train_sources: [human_wt, mouse_wt, k80, flow_matching]
+train_data: assets/processed/k80/train_lite_k80.parquet
+validation_data: assets/processed/te/human_val_wt.parquet
+test_data: assets/processed/te/human_test_wt.parquet
+label_col: soft_label_taylor
+evaluation_label_col: mean_te
+label_semantics: K80_WT_anchor_without_distance_scaling; FM_absolute_teacher
+seed: NEEDS_AUTHOR_CONFIRMATION
+training:
+  backbone_weights: assets/checkpoints/backbone/pretrained_step13500.pt
+  backbone_lr: 5.0e-6
+  head_lr: 1.0e-3
+  max_epochs: 50
+  batch_size: 12
+  accumulate_grad_batches: 4
+  devices: 8
+  num_workers: 4
+  precision: bf16-mixed
+  matmul_precision: high
+  dynamic_sampling: true
+  epoch_synthetic_sample_size: 40000
+  real_copy_factor: 2

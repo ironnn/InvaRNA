@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "scope": "current manuscript Figure 5 numeric tables",
+  "panel_A_expression": {
+    "mean_max_abs_error": 0.0,
+    "sd_max_abs_error": 6.245004513516506e-17
+  },
+  "panel_A_stability": {
+    "mean_max_abs_error": 1.4210854715202004e-14,
+    "sd_max_abs_error": 2.220446049250313e-16,
+    "k_max_abs_error": 1.3782541205542564e-08,
+    "half_life_max_abs_error": 0.00010457372920313901
+  },
+  "panel_B": {
+    "status": "AUTHOR_CURATED_MANUAL_SELECTION",
+    "reported_te_improved": 18,
+    "reported_te_and_stability_improved": 4,
+    "algorithmic_threshold": null
+  },
+  "panel_C_expression": {
+    "mean_max_abs_error": 2.220446049250313e-16,
+    "sd_max_abs_error": 6.938893903907228e-17
+  },
+  "panel_C_stability": {
+    "mean_max_abs_error": 1.4210854715202004e-14,
+    "sd_max_abs_error": 5.329070518200751e-15,
+    "k_max_abs_error": 4.5869278583743345e-08,
+    "half_life_max_abs_error": 5.736070692208273e-06
+  },
+  "panel_D": {
+    "normalized_max_abs_error": 3.885780586188048e-16,
+    "relative_max_abs_error": 8.881784197001252e-15
+  },
+  "panel_E": {
+    "mean_max_abs_error": 0.0,
+    "sd_max_abs_error": 4.440892098500626e-16,
+    "p_max_abs_error": 4.440892098500626e-16
+  }
+}

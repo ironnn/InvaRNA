@@ -1,0 +1,16 @@
+model,display,species,clade,n,spearman
+InvaRNA0412,H.sapiens,homo_sapiens,Human,3000,0.4899151912055547
+InvaRNA0412,M.musculus,mus_musculus,Mammals,3000,0.41635864828030145
+InvaRNA0412,R.norvegicus,rattus_norvegicus,Mammals,3000,0.5876806253590225
+InvaRNA0412,D.rerio,danio_rerio,Vertebrates,3000,0.1190632786898212
+InvaRNA0412,C.elegans,caenorhabditis_elegans,Invertebrates,3000,0.3139777000964238
+RiboNN,H.sapiens,homo_sapiens,Human,3000,0.3298530858430503
+RiboNN,M.musculus,mus_musculus,Mammals,3000,0.20897997347615416
+RiboNN,R.norvegicus,rattus_norvegicus,Mammals,2999,0.430858945937339
+RiboNN,D.rerio,danio_rerio,Vertebrates,2999,0.06059989094272078
+RiboNN,C.elegans,caenorhabditis_elegans,Invertebrates,2999,0.2113807686623275
+UTR-LM,H.sapiens,homo_sapiens,Human,3000,0.2538923133392083
+UTR-LM,M.musculus,mus_musculus,Mammals,3000,0.1737232317100682
+UTR-LM,R.norvegicus,rattus_norvegicus,Mammals,3000,0.22048581246407278
+UTR-LM,D.rerio,danio_rerio,Vertebrates,3000,0.10017256578984801
+UTR-LM,C.elegans,caenorhabditis_elegans,Invertebrates,3000,0.0835877777314695

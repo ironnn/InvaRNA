@@ -1,0 +1,26 @@
+tolerance: 0.001
+checkpoint_consistency:
+  n: 1115
+  max_abs_prediction_difference: 0.0
+  r2_difference: 0.0
+fig3_ablation:
+  human: 0.661
+  human_mouse: 0.719
+  matched_random_absolute_teacher: 0.729
+  k80_absolute_teacher: 0.735
+  k80_wt_anchor: 0.739
+  final_tdc: 0.751
+fig3_heldout_human:
+  InvaRNA: 0.751
+  RiboNN: 0.617
+  Evo2: 0.730
+fig3_mpra_mean_spearman:
+  InvaRNA: 0.353
+  RiboNN: 0.260
+  UTR-LM: 0.086
+rpfd_final:
+  caenorhabditis_elegans: 0.3139781132075929
+  danio_rerio: 0.1190633724676109
+  homo_sapiens: 0.489914409872078
+  mus_musculus: 0.4163584047247112
+  rattus_norvegicus: 0.5876791535810354

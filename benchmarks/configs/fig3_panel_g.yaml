@@ -1,0 +1,63 @@
+panel: "Fig. 3g"
+description: "External Optimus 5-Prime MPRA comparison"
+canonical_manuscript_version: nm_20260805
+
+input:
+  panel_3k: assets/benchmark_data/mpra/fig3g/input/mpra_panel_g_3k.parquet
+  original_100k_per_library: assets/benchmark_data/mpra/fig3g/input/mpra_input_100k_per_library.parquet
+  group_column: sample
+  truth_column: ribosome_loading
+  libraries: 10
+
+sampling:
+  per_library: 3000
+  random_state: 42
+  implementation: pandas.DataFrame.sample
+  # The original figure sampled each group independently with the same integer seed.
+  groupby_sort: true
+  replace: false
+
+metric:
+  name: spearman
+  aggregation: mean_across_libraries
+  error_bar: sample_standard_deviation
+  ddof: 1
+  drop_missing_truth_or_prediction: true
+
+models:
+  UTRLM:
+    prediction_file: assets/benchmark_data/mpra/fig3g/predictions/pred_utrlm_100k_per_library.csv
+    panel_subset_file: assets/benchmark_data/mpra/fig3g/predictions/pred_utrlm_3k.csv
+    prediction_column: pred_utrlm
+    apply_group_sampling: true
+    checkpoint_glob: assets/checkpoints/external/pretrained/models/UTR_LM/hek_ensemble/hek_fold*.pt
+    ensemble_folds: 10
+    sequence_input: last_100_nt_of_5prime_utr
+  RiboNN:
+    prediction_file: assets/benchmark_data/mpra/fig3g/predictions/pred_ribonn_100k_per_library_submission_20260717.csv
+    historical_runtime_rerun_file: assets/benchmark_data/mpra/fig3g/predictions/pred_ribonn_3k.csv
+    prediction_column: pred_ribonn
+    apply_group_sampling: true
+    code_root: external_models/RiboNN
+    checkpoint: assets/checkpoints/external/pretrained/models/ribonn/RiboNN-1.0.0/models/057db008d02743f4b319c5961b00ed41/state_dict.pth
+    runs_table: assets/checkpoints/external/pretrained/models/ribonn/RiboNN-1.0.0/models/runs.csv
+    run_table_selection: first_row
+    top_k_models_to_use: 1
+  InvaRNA:
+    prediction_file: assets/benchmark_data/mpra/fig3g/predictions/pred_invarna_taylor_dist_e14_3k.csv
+    prediction_column: pred_taylor_dist_e14
+    apply_group_sampling: false
+    checkpoint: assets/checkpoints/te_student/final_tdc.ckpt
+    historical_checkpoint_name: taylor_dist_e14.ckpt
+
+expected:
+  UTRLM: {mean: 0.08553880569210122, sd: 0.11926778671834146}
+  RiboNN: {mean: 0.2596562194968213, sd: 0.09461792624546723}
+  InvaRNA: {mean: 0.35321597527854875, sd: 0.09327951065473886}
+
+source_sha256:
+  panel_3k: 2e6f28262720423f9176739060e74b14bd866ccfe1b788aee3a9c08bc6bed555
+  original_100k_per_library: 48b711bdbe7f306786846b02a0dadd78ce4277468d4a043a9be1de7612ecc7d3
+  InvaRNA: 8b922cccbc76deb55678f787193855b90d0c12aefbc7b14f2d887203c6e1c428
+  RiboNN: 340f0446fb5b78cb47dcc4fbee2d69e299a01970d0451af0ffde4c9c660c8047
+  UTRLM: 1488a527a9621b1d67431de75cc81301d1a046333ef13a4187bf1ea7fb6b0f59

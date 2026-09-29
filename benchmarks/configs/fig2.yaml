@@ -1,0 +1,141 @@
+source_dir: assets/manuscript_figures/fig2_compact
+backbone_checkpoint: assets/checkpoints/backbone/pretrained_step13500.pt
+
+expected_rows:
+  umap: 7000
+  centroids: 21
+  mrl: 7
+  half_life: 8
+  expression: 8
+  routing: 8000
+  regions: 8
+  manifest: 24
+
+f2a:
+  embedding_dimension: 1024
+  species:
+    - Human
+    - Mouse
+    - Lizard
+    - Zebrafish
+    - Fruit Fly
+    - Nematode
+    - Yeast
+  samples_per_species: 1000
+  drawing_order: [Yeast, Nematode, Fruit Fly, Zebrafish, Lizard, Mouse, Human]
+  palette:
+    Human: "#E64B35"
+    Mouse: "#4DBBD5"
+    Lizard: "#3C5488"
+    Zebrafish: "#00A087"
+    Fruit Fly: "#F39B7F"
+    Nematode: "#8491B4"
+    Yeast: "#7E6148"
+  umap:
+    n_components: 2
+    n_neighbors: 30
+    min_dist: 0.3
+    random_state: 42
+  centroid_distance: euclidean
+  divergence_source: TimeTree
+  expected_spearman_rho: 0.7584483931517514
+  expected_spearman_pvalue: 0.0000676142532088947
+  submitted_coordinate_policy: >-
+    The committed UMAP coordinates are the coordinates recovered at vector precision
+    from the finalized panel, preventing umap-learn/Numba version drift. The external
+    asset archive retains the 7,000 source embeddings for independent reruns.
+
+f2b:
+  frozen_backbone: true
+  primary_metric: test_r2
+  test_labels_used_for_selection: false
+  same_probe_parameters_within_task: true
+  invarna_test_r2:
+    mean_ribosome_load: 0.375840
+    mrna_half_life: 0.388470
+    expression_level: 0.578375
+  display_rules:
+    exclude_codonbert_mrl: true
+    exclude_codonbert_mrl_reason: >-
+      MeanRibosomeLoading inputs are bare 5-prime-UTR fragments and contain no CDS
+      from which a codon representation can be constructed.
+    use_evo2_8k_for_half_life_and_expression: true
+  probe_common:
+    objective: regression
+    metric: rmse
+  mean_ribosome_load:
+    split: official_BEACON_sequence_split
+    embedding_pooling: whole_sequence_mean_plus_max
+    learning_rate: 0.01
+    n_estimators: 1200
+    num_leaves: 40
+    max_depth: 11
+    min_child_samples: 26
+    subsample: 0.82
+    colsample_bytree: 0.3
+    reg_alpha: 0.2
+    reg_lambda: 0.8
+    early_stopping_rounds: 50
+  half_life:
+    split: gene_disjoint
+    key: transcript_id
+    candidate_selection: best_mean_validation_r2_across_backbones
+    selected_candidate: C2_Trial30
+    random_state: 111
+    n_estimators: 25000
+    early_stopping_rounds: 1500
+    subsample_freq: 1
+    selected_parameters:
+      learning_rate: 0.009739736500790191
+      num_leaves: 61
+      max_depth: 10
+      min_child_samples: 91
+      subsample: 0.7749148157782488
+      colsample_bytree: 0.5891108246163971
+      reg_alpha: 1.4339287547146289
+      reg_lambda: 1.231808497941
+  expression_level:
+    split: official_human_gene_id_gene_disjoint
+    key: human_gene_id
+    candidate_selection: best_mean_validation_r2_across_backbones
+    selected_candidate: C5
+    random_state: 111
+    n_estimators: 25000
+    early_stopping_rounds: 1500
+    subsample_freq: 1
+    selected_parameters:
+      learning_rate: 0.013123632536390602
+      num_leaves: 61
+      max_depth: 10
+      min_child_samples: 93
+      subsample: 0.7670668119117988
+      colsample_bytree: 0.5739627990921417
+      reg_alpha: 1.4706547247718655
+      reg_lambda: 0.8259385167562873
+  candidate_sweep:
+    C1_SOTA: {learning_rate: 0.01, num_leaves: 66, max_depth: 9, min_child_samples: 92, subsample: 0.8735, colsample_bytree: 0.6022, reg_alpha: 1.6909, reg_lambda: 2.8741}
+    C2_Trial30: {learning_rate: 0.009739736500790191, num_leaves: 61, max_depth: 10, min_child_samples: 91, subsample: 0.7749148157782488, colsample_bytree: 0.5891108246163971, reg_alpha: 1.4339287547146289, reg_lambda: 1.231808497941}
+    C3: {learning_rate: 0.013021789810756048, num_leaves: 63, max_depth: 10, min_child_samples: 89, subsample: 0.7670546800664664, colsample_bytree: 0.6300221501639626, reg_alpha: 1.437708460113417, reg_lambda: 1.1619642294926453}
+    C4: {learning_rate: 0.016332112274945354, num_leaves: 67, max_depth: 9, min_child_samples: 88, subsample: 0.7396776354829975, colsample_bytree: 0.6290474302580475, reg_alpha: 2.273321802260617, reg_lambda: 0.9953947901720361}
+    C5: {learning_rate: 0.013123632536390602, num_leaves: 61, max_depth: 10, min_child_samples: 93, subsample: 0.7670668119117988, colsample_bytree: 0.5739627990921417, reg_alpha: 1.4706547247718655, reg_lambda: 0.8259385167562873}
+
+f2c:
+  sampling_seed: 42
+  batch_size: 24
+  shuffle: true
+  num_workers_in_exporter: 0
+  mlm_enabled: true
+  mlm_probability: 0.15
+  max_length: 10000
+  utr_boundary: 1000
+  cds_plus_utr3_end: 9000
+  curve_end: 8000
+  rolling_window: 80
+  experts: [Single-base, Codon, 9-mer, Ribosome]
+  replay_curve_max_abs_tolerance: 0.0005
+  replay_region_max_abs_tolerance: 0.00005
+
+validation:
+  metric_tolerance: 1.0e-10
+  probability_tolerance: 2.0e-7
+  rolling_tolerance: 1.0e-9

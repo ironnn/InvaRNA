@@ -1,0 +1,10 @@
+model: final_tdc
+group_col: species
+truth_col: te_ratio
+prediction_col: pred_InvaRNA0412
+input: assets/benchmark_data/rpfdb/rpfd_multi_species.parquet
+species: [homo_sapiens, mus_musculus, rattus_norvegicus, danio_rerio, caenorhabditis_elegans]
+n_per_species: 3000
+label_transform: log10
+primary_metric: spearman
+used_for_training_or_selection: false

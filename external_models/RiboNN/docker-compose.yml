@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ribonn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ribonn-predictor:latest
+    container_name: ribonn-te-predictor
+
+    # GPU 配置 (需要安装 nvidia-docker)
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+
+    # 挂载目录
+    volumes:
+      # 挂载输入数据目录
+      - ./input:/app/input
+      # 挂载输出结果目录
+      - ./output:/app/output
+      # (可选) 如果需要修改代码，可以挂载整个项目
+      # - ./predict.py:/app/predict.py
+
+    # 工作目录
+    working_dir: /app
+
+    # 默认命令 (可以被覆盖)
+    command: python predict.py
+
+    # 保持容器运行 (调试用)
+    # stdin_open: true
+    # tty: true

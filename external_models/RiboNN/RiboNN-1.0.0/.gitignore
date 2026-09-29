@@ -1,0 +1,10 @@
+__pycache__/
+.hypothesis/
+.pytest_cache/
+.coverage
+.vscode/
+.github/
+lightning_logs/
+lightning_checkpoints/
+mlruns/
+results/

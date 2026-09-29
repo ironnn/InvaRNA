@@ -1,0 +1,32 @@
+model: final_tdc
+experts: [Single Base, Codon, 9-mer, Ribosome]
+fixed_frame: {cds_start: 1000, total_length: 10000}
+fig4a:
+  sample_per_condition: 1000
+  permutations_per_element: 20
+  random_seed: 42
+  production_shards: 2
+  seed_per_shard: 42
+  null: shuffle_only_annotated_element_interval
+  region_score: mean_gate_fwd_softmax_over_element_interval
+  zscore_epsilon: 1.0e-9
+  summary: {iqr_multiplier: 1.5, test: two_sided_one_sample_t_test_against_zero}
+  conditions: [uORF, RBP_UTR5, RBP_CDS, RBP_UTR3, miRNA_UTR3]
+dorf_nomination:
+  region: 3UTR
+  orffinder_minimum_length_nt: 75
+  remove_nested: true
+  median_nonzero_3utr_rpkm_threshold: 1.0
+fig4b_genome_wide:
+  representative_transcript_rule: highest_orf_rpkm_per_gene_symbol
+  permutations_per_gene: 50
+  random_seed: 99
+  production_shards: 2
+  seed_rule: random_seed_plus_shard_index
+  null: shuffle_entire_3UTR
+  scoring_region: entire_3UTR
+  ranking_expert: Ribosome
+fig4b_case_study:
+  permutations_per_gene: 1000
+  random_seed: 99
+status: recovered_from_final_figure_scripts

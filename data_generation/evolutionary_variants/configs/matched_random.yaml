@@ -1,0 +1,11 @@
+seed: 42
+k80_input: assets/processed/k80/student_train.parquet
+output: assets/processed/matched/matched_mutations.parquet
+variant_scope: training_anchors_only
+match_exactly: [utr5_hamming_count, cds_hamming_count, utr3_hamming_count]
+randomize: [position_within_region, replacement_nucleotide]
+cds_mode: free
+protect_cds_start_stop: true
+human_extra_controls: 15
+training_label: absolute_teacher_prediction
+tdc_usage: post_hoc_qc_only_extended_data_figure_3

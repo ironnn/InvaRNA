@@ -1,0 +1,19 @@
+model: final_tdc
+routing_stream: gate_fwd
+expert_order: [identity, kernel_3, kernel_9, kernel_28]
+fixed_frame: {total_length: 10000, cds_start: 1000}
+feature_specialization:
+  null: local_feature_region_nucleotide_shuffle
+  samples_per_condition: 1000
+  permutations: 20
+  seed: 42
+  outlier_filter: {method: IQR, multiplier: 1.5, grouping: [condition, expert]}
+  test: one_sample_t_test_against_zero
+dorf_candidate:
+  candidate_source: ORFfinder_3UTR_loci
+  null: whole_3UTR_nucleotide_shuffle
+  detailed_permutations: 1000
+  genome_wide_permutations: 50
+  global_seed: 99
+  batch_size: 64
+  scoring_expert: kernel_28

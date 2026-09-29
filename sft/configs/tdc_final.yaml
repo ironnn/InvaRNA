@@ -1,0 +1,37 @@
+experiment: final_tdc
+train_sources: [human_wt, mouse_wt, k80, flow_matching]
+train_data: assets/processed/final/train_tdc.parquet
+validation_data: assets/processed/te/human_val_wt.parquet
+test_data: assets/processed/te/human_test_wt.parquet
+label_col: training_label
+evaluation_label_col: mean_te
+label_rules:
+  wild_type: measured_TE
+  k80_local_variants: WT_measured_plus_teacher_delta_times_normalized_distance
+  flow_matching_nonlocal_utr_replacements: absolute_teacher_prediction
+  matched_random_control: not_in_final_training
+tdc:
+  alpha: 1.0
+  distance: hamming
+  normalization: per_transcript_max_K80_distance
+seed: NEEDS_AUTHOR_CONFIRMATION
+training:
+  backbone_weights: assets/checkpoints/backbone/pretrained_step13500.pt
+  backbone_lr: 5.0e-6
+  head_lr: 1.0e-3
+  max_epochs: 50
+  batch_size: 12
+  accumulate_grad_batches: 4
+  devices: 8
+  num_workers: 4
+  precision: bf16-mixed
+  matmul_precision: high
+  dynamic_sampling: true
+  epoch_synthetic_sample_size: 40000
+  real_copy_factor: 2
+leakage:
+  human_split: gene_disjoint_80_10_10
+  human_counts: {train: 8917, validation: 1115, test: 1115}
+  synthetic_anchors: training_only
+  validation_test_used_for_teacher_or_labels: false
+  external_labels_used_for_training_or_selection: false
