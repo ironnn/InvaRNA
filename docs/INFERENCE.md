@@ -8,10 +8,10 @@ position 1,000 and padded or truncated to 10,000 nt.
 
 ```bash
 python inference/predict_te.py \
-  --model wt --input input.parquet --output predictions.csv
+  --model w0 --input input.parquet --output predictions.csv
 
 torchrun --standalone --nproc_per_node=4 inference/predict_te.py \
-  --model wt --input input.parquet --output predictions.csv
+  --model w0 --input input.parquet --output predictions.csv
 ```
 
 Python API:
@@ -19,6 +19,6 @@ Python API:
 ```python
 from invarna.evaluation import InvaRNAPredictor
 
-predictor = InvaRNAPredictor("wt", device="cuda:0")
+predictor = InvaRNAPredictor("w0", device="cuda:0")
 scores = predictor.predict(["ACGT..."], utr5_sizes=[100])
 ```

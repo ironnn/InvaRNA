@@ -9,9 +9,9 @@ and random seed are recorded in `benchmarks/configs/fig2.yaml` and
 
 ## Fig. 2 frozen-representation benchmark
 
-The compact finalized tables are installed under `assets/manuscript_figures/fig2_compact/` from the
-separately distributed figure-data archive; they are not GitHub blobs. Full labels
-and cached embeddings are in that archive's `data/fig2/` tree. Reproduce the
+The compact finalized tables are included under
+`assets/manuscript_figures/fig2_compact/` in the GitHub checkout. Full labels and
+cached embeddings are outside the figure-only checkout. Reproduce the
 submitted computational figure and validate all displayed values with:
 
 ```bash
@@ -23,14 +23,14 @@ validation R2 across backbones, then apply it unchanged to every backbone in tha
 task. Test labels are not used for selection. The finalized panel uses only the
 approved backbone comparisons recorded in the Fig. 2 config.
 
-External-model benchmark code is under `external_models/`.  The exact local training tables,
-upstream weights, and selected TE checkpoints are assembled under the Git-ignored
-`assets/` directory.  See `assets/README.md`, its checksum manifest, and
-`benchmarks/configs/external_llm_te.yaml`.  Redistribution permissions for the separate
-binary bundle still require author confirmation.
+External-model benchmark code is under `external_models/`. Exact training tables,
+upstream weights, and selected TE checkpoints are outside the figure-only checkout.
+See `benchmarks/configs/external_llm_te.yaml` and `external_models/README.md` for
+the input and download records.
 
-The saved selected-checkpoint predictions are small and committed, so the reported test R2
-values can be independently recalculated without downloading models:
+The saved selected-checkpoint predictions are retained in a private benchmark
+archive, not in this seven-weight release. Where those tables are available,
+the reported test R2 values can be recalculated without downloading models:
 
 ```bash
 python benchmarks/heldout_human_te/verify_external_models.py \
@@ -48,6 +48,12 @@ python external_models/inference/evaluate_te_checkpoint.py \
 
 The common configuration records each sequence region, maximum context, selected
 checkpoint, and expected result. The current 2026-08-05 `nm.pdf` uses `evo2_8k`.
+
+The 1,115-row human WT validation and test splits themselves are included in the
+GitHub checkout at `assets/benchmark_data/human_te/human_val_wt.parquet` and
+`assets/benchmark_data/human_te/human_test_wt.parquet`. They contain the sequence,
+frame, measured TE, and historical teacher-derived columns. The external-model
+prediction tables and larger training inputs are not distributed in this release.
 
 ## Fig. 3b cross-species benchmark
 

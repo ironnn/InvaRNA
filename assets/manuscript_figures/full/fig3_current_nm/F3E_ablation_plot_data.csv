@@ -1,0 +1,7 @@
+configuration,test_r2_plotted,delta_from_previous_bar,human_data,mouse_data,random_aug,evolution-guided_aug,taylor_correction,tdc_soft_label
+human,0.661,,True,False,False,False,False,False
+human_mouse,0.719,0.058,True,True,False,False,False,False
+rand_mut,0.7285,0.0095,True,True,True,False,False,False
+evol_mut,0.735,0.0065,True,True,False,True,False,False
+taylor,0.7389,0.0039,True,True,False,True,True,False
+final,0.7508,0.0119,True,True,False,True,False,True

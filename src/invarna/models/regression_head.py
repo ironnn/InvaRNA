@@ -14,13 +14,13 @@ class MambaRCHeadStage2(LightningModule):
         self.save_hyperparameters(ignore=['pretrained_backbone'])
         self.config = config
 
-        # A. 继承内功 (Mamba Backbone)
+
         self.backbone = pretrained_backbone
 
-        # B. 定义 RC-Safe CNN 头 (d_model=512)
+
         d_model = 512
         self.rc_cnn_head = nn.Sequential(
-            # Block 1: L -> L/2 (groups=2 分组卷积)
+
             nn.Conv1d(d_model, 256, kernel_size=5, padding=2, groups=2),
             nn.BatchNorm1d(256),
             nn.SiLU(),
@@ -38,11 +38,11 @@ class MambaRCHeadStage2(LightningModule):
             nn.SiLU(),
             nn.MaxPool1d(2),
 
-            # 强制将长度固定为 64
+
             nn.AdaptiveAvgPool1d(64)
         )
 
-        # C. 回归层
+
         self.regressor = nn.Sequential(
             nn.Flatten(),
             nn.Dropout(0.3),
@@ -64,7 +64,7 @@ class MambaRCHeadStage2(LightningModule):
              mask = attention_mask.unsqueeze(-1).to(hidden_states.dtype)
              hidden_states = hidden_states * mask
 
-        # 2. 维度变换
+        # 2. Permute to (B, D, L) for CNN
         x = hidden_states.permute(0, 2, 1)
 
         # 3. CNN Head + Regressor

@@ -469,7 +469,8 @@ ax_edot = fig.add_subplot(e_gs[1])
 
 E_models = ['human', 'human_mouse', 'rand_mut', 'evol_mut', 'taylor', 'final']
 E_labels_dot = ['Human data', 'Mouse data', 'Random aug.', 'Evolution-guided aug.', 'Taylor correction', 'TDC soft label']
-E_val_r2 = [0.661, 0.719, 0.7285, 0.7350, 0.7389, 0.7508]
+checked_e = pd.read_csv(os.path.join(DATA_DIR, 'F3E_ablation_plot_data.csv')).set_index('configuration').loc[E_models]
+E_val_r2 = checked_e['test_r2_plotted'].tolist()
 E_c = INV_GRAY
 
 x_e = np.arange(len(E_models))
@@ -489,14 +490,10 @@ ax_ebar.tick_params(labelsize=8)
 ax_ebar.grid(axis='y', alpha=0.15, zorder=0)
 panel_label(ax_ebar, 'E', x=-0.18)
 
-E_active = [
-    [1,0,0,0,0,0],  # human only
-    [1,1,0,0,0,0],  # + mouse
-    [1,1,1,0,0,0],  # + random augmentation
-    [1,1,0,1,0,0],  # + evolutionary augmentation
-    [1,1,0,1,1,0],  # + taylor correction (with evolution-guided)
-    [1,1,0,1,0,1],  # + final correction (with evolution-guided)
-]
+E_active = checked_e[[
+    'human_data', 'mouse_data', 'random_aug', 'evolution-guided_aug',
+    'taylor_correction', 'tdc_soft_label',
+]].astype(int).values.tolist()
 E_c_on = '#2F4F4F'; E_c_off = '#D0D0D0'
 for col in range(len(E_models)):
     for row in range(len(E_labels_dot)):

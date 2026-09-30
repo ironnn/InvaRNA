@@ -1,8 +1,7 @@
 # Fig. 4 computational source data
 
-These files are direct copies of the recovered final-figure inputs. They are installed
-from the separate publication figure-data archive and are not GitHub blobs. Their
-hashes are recorded in the tracked `SHA256SUMS`.
+These files are direct copies of the recovered final-figure inputs and are tracked
+in the GitHub repository. Their hashes are recorded in `SHA256SUMS`.
 
 - `_f4a_local_s0.csv`, `_f4a_local_s1.csv`: 5,000 elements × four experts; local
   element shuffle, 20 permutations, InvaRNA0412.

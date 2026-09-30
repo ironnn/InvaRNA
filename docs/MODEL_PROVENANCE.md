@@ -9,12 +9,12 @@ GitHub-safe merely by being present on disk.
 
 | Group | Required artifacts | Local status | Integrity record | Publication action |
 |---|---:|---|---|---|
-| Mamba–Motif-MoE backbone | 1 weight file + architecture/config/tokenizer | Complete | `assets/checkpoints/SHA256SUMS` | Publish in the separate asset deposit |
-| Privileged TE teacher | 1 LightGBM model + 5 metadata files + exact source snapshot | Complete | `assets/checkpoints/SHA256SUMS`; teacher audit | Publish model/inputs in the separate asset deposit |
-| Fig. 3 selected ablations | 3 Stage-2 checkpoints | Complete locally | `assets/checkpoints/ABLATION_SHA256SUMS` | Publish in the separate asset deposit |
-| Human/mouse WT species ablation | 3 conditions x 3 seeds = 9 Stage-2 checkpoints | Complete locally | `assets/checkpoints/SPECIES_ABLATION_SHA256SUMS`; species-ablation audit | Publish in the separate asset deposit |
-| Native inference registry | 5 Stage-1 + 14 Stage-2 TE + 2 half-life checkpoints | Complete locally | `assets/checkpoints/INFERENCE_SHA256SUMS` | Publish in the separate asset deposit |
-| Fig. 5 frozen predictors | TE ensemble members and `hl_new` are contained in the native registry | Complete locally | `assets/checkpoints/INFERENCE_SHA256SUMS` | Same native-checkpoint archive |
+| Mamba–Motif-MoE backbone | 1 weight file + architecture/config/tokenizer | Complete | `assets/checkpoints/REQUIRED_SHA256SUMS` | Publish the weight in the seven-file asset package |
+| Privileged TE teacher | 1 LightGBM model + 5 metadata files + exact source snapshot | Complete | `assets/checkpoints/REQUIRED_SHA256SUMS`; teacher audit | Publish the model only; historical teacher inputs are not distributed |
+| Fig. 3 selected ablations | 3 Stage-2 checkpoints | Complete locally | `assets/checkpoints/ABLATION_SHA256SUMS` | Private provenance only; frozen figure tables need no weights |
+| Human/mouse WT species ablation | 3 conditions x 3 seeds = 9 Stage-2 checkpoints | Complete locally | `assets/checkpoints/SPECIES_ABLATION_SHA256SUMS`; species-ablation audit | Private provenance only; saved prediction tables suffice for the displayed values |
+| Native inference registry | 5 Stage-1 + 14 Stage-2 TE + 2 half-life checkpoints | Complete locally | `assets/checkpoints/INFERENCE_SHA256SUMS` | Private historical inventory; only four TE and one HL weights are distributed |
+| Fig. 5 updated design predictors | Four TE ensemble members and `hl_new` are contained in the native registry | Complete locally; prospective configuration | `assets/checkpoints/REQUIRED_SHA256SUMS` | Publish in the minimal native-checkpoint package |
 
 Exact native inventory:
 
@@ -23,15 +23,20 @@ Exact native inventory:
 - Stage-1 registry: `evo`, `hlevo_e2`, `hlevo_e7`, `noevo_s1`, `test_s1`.
 - Stage-2 TE registry: `InvaRNA0412`, `noevo`, `notaylor`, `old1`, `old2`,
   `only_taylor_beidian`, `taylor_dist`, `taylor_dist_e14`, `taylor_dist_e21`,
-  `world_new`, `world_new07522`, `world_old`, `wt`, `wt_human`.
+  `w0`, `w1`, `w2`, `world_old`, `wt_human`.
 - Half-life registry: `hl0704`, `hl_new`.
 - Selected Fig. 3 ablations: `ablation_1k_org_ep22`,
   `ablation_2r_org_ep28`, `ablation_3kl_tay_ep46`.
 - Human/mouse WT species ablation: `human`, `human_mouse_rbh_filtered`, and
   `human_mouse_full`, each for seeds `22222`, `3407`, and `9713`.
 
-The Fig. 5 configs reference the frozen TE ensemble `world_new07522`, `world_new`,
-and `wt`, plus half-life model `hl_new`; all four are present in the native registry.
+The current Fig. 5 design configs use four TE predictors: `w0`, `w1`, `w2`, and
+`final_tdc`, plus the separate half-life model `hl_new`. The first three are renamed
+distribution files for the historical `wt`, `world_new`, and `world_new07522`
+weights, respectively; the serialized bytes and SHA-256 values are unchanged.
+This four-TE ensemble is a prospective configuration update, not evidence that the
+historical manuscript Fig. 5 runs used four TE models. The exact historical
+all-task production launcher remains unrecovered.
 
 The three selected Fig. 3 ablations map to the authenticated runs as follows:
 
@@ -62,18 +67,18 @@ contain 1,116 rows for the 1,115-row human split because the distributed sampler
 to world size; the audit preserves the reported calculation and does not silently
 replace it with a post hoc de-duplicated metric.
 
-## Privileged-teacher dependency closure
+## Privileged-teacher dependency closure (private historical inputs)
 
 The standalone workflow does contain the previously questioned dependencies:
 
 | Dependency | Repository location | Status |
 |---|---|---|
 | Engineered-feature extractor | `data_generation/label_generation/teacher/source/utils/lgbm_feature_extract_from_str.py` | Included source |
-| Human half-life table | `assets/training_data/half_life/teacher_reference/human_time.csv` | Included locally, manifest-controlled |
-| Mouse half-life table | `assets/training_data/half_life/teacher_reference/mouse_time.csv` | Included locally, manifest-controlled |
-| Human→mouse RBH used by student-label leakage filtering | `assets/training_data/half_life/teacher_reference/rbh_human_to_mouse.parquet` | Included locally from the TE standalone workflow |
-| Mouse→human companion RBH | `assets/training_data/half_life/teacher_reference/rbh_mouse_to_human.parquet` | Included locally from the half-life standalone workflow |
-| Prepared human/mouse teacher tables | `assets/training_data/teacher/full_inputs/` | Included locally, manifest-controlled |
+| Human half-life table | `assets/training_data/half_life/teacher_reference/human_time.csv` | Private; not distributed |
+| Mouse half-life table | `assets/training_data/half_life/teacher_reference/mouse_time.csv` | Private; not distributed |
+| Human→mouse RBH used by student-label leakage filtering | `assets/training_data/half_life/teacher_reference/rbh_human_to_mouse.parquet` | Private; not distributed |
+| Mouse→human companion RBH | `assets/training_data/half_life/teacher_reference/rbh_mouse_to_human.parquet` | Private; not distributed |
+| Prepared human/mouse teacher tables | `assets/training_data/teacher/full_inputs/` | Private; not distributed |
 | Frozen feature order and split indices | `assets/checkpoints/teacher/metadata/` | Included |
 | Production training/scoring scripts | `data_generation/label_generation/teacher/source/` | Included |
 
@@ -132,16 +137,19 @@ in `external_models/DOWNLOADS.tsv`; they do not imply that weights are redistrib
 ## Verification
 
 ```bash
-(cd assets/checkpoints && sha256sum -c SHA256SUMS)
-(cd assets/checkpoints && sha256sum -c INFERENCE_SHA256SUMS)
-(cd assets/checkpoints && sha256sum -c ABLATION_SHA256SUMS)
-(cd assets/checkpoints && sha256sum -c SPECIES_ABLATION_SHA256SUMS)
-python data_generation/label_generation/teacher/audit.py
-python benchmarks/rbh_sensitivity/audit.py
+(cd assets/checkpoints && sha256sum -c REQUIRED_SHA256SUMS)
 python tests/verify_assets.py
-python benchmarks/heldout_human_te/verify_external_models.py
 ```
 
-The four checksum commands validate all 35 native model artifacts: one backbone, one
+Teacher-source and external-baseline audits require historical full input or
+prediction tables that are not distributed in this release. The teacher audit
+can be run only where the private inputs are available; it is not a check of
+the seven-file weight package.
+
+For the private full historical model inventory, verify `SHA256SUMS`,
+`INFERENCE_SHA256SUMS`, `ABLATION_SHA256SUMS`, and
+`SPECIES_ABLATION_SHA256SUMS` separately and run
+`python benchmarks/rbh_sensitivity/audit.py` with its full benchmark inputs.
+Those four historical checksum records cover all 35 native model artifacts: one backbone, one
 teacher, 21 inference-registry checkpoints, three selected Fig. 3 ablations, and nine
 human/mouse WT species-ablation checkpoints.

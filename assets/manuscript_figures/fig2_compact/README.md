@@ -1,9 +1,8 @@
 # Figure 2 computational source data
 
 These compact tables are direct copies of the finalized Figure 2 plotting data and
-are installed from the separate publication figure-data archive; they are not GitHub
-blobs. `SHA256SUMS` (tracked in Git) records their byte identity. The primary entry
-point after archive installation is:
+are tracked in the GitHub repository. `SHA256SUMS` records their byte identity.
+The primary entry point is:
 
 ```bash
 python figures/fig2/reproduce.py
@@ -18,7 +17,7 @@ PNG under `results/fig2/`. Use `--check-only` for the numerical consistency chec
   from each of seven species. Parameters were `n_neighbors=30`, `min_dist=0.3`, and
   `random_state=42`. To avoid UMAP/Numba version drift, the committed coordinates are
   those recovered at vector precision from the submitted panel. The source embeddings
-  remain in the separately distributed asset archive.
+  are not in the figure-only GitHub checkout.
 - `F2A_right_centroid_vs_divergence.csv`: all 21 species pairs, using Euclidean
   distances between embedding centroids and the exact TimeTree values used by the
   finalized script. Spearman rho is 0.7584483932 (`p=6.7614253e-05`).

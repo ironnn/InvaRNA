@@ -2,8 +2,10 @@
 
 The public plotting bundle retains only the checked tables required for the displayed
 F5C, F5D, and 20x F5E panels. Candidate histories, raw experimental workbooks, and
-design-training tables are excluded. The small WT starting sequences and the RL smoke
-fixture remain in `assets/sequences/` and `assets/smoke/`.
+design-training tables are excluded. The complete BLNK, HBB, and NGF construct
+sequences are provided through the independently uploaded Supplementary Data 2,
+not this Git repository. The WT starting sequences and RL smoke fixture remain
+in `assets/sequences/` and `assets/smoke/`.
 
 Redraw the Fig. 5C panel from the frozen public tables with:
 

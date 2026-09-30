@@ -21,11 +21,13 @@ and the later orthology-aware student-label filter.
 The fitted model uses 3,274 ordered inputs: 3,072 backbone embedding columns, 201
 engineered sequence columns, and one half-life column. Its frozen feature order, split
 indices, trial record, and hyperparameters are under `assets/checkpoints/teacher/metadata/`.
-The required human/mouse half-life tables, bidirectional RBH tables, and prepared
-teacher feature tables are in the separately distributed, Git-ignored
-`assets/training_data/teacher/` archive.
+The historical human/mouse half-life tables, bidirectional RBH tables, and prepared
+teacher feature tables are retained in a private, non-release archive. They are
+not part of the public seven-weight package. Scoring an already engineered feature
+table with the released teacher model does not require those historical tables;
+retraining or auditing the original teacher-input construction does.
 
-Run the integrity and method audit with:
+With the private historical inputs installed, run the integrity and method audit with:
 
 ```bash
 python data_generation/label_generation/teacher/audit.py

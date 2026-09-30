@@ -1,0 +1,15 @@
+# Native weights are distributed only after the final manuscript submission.
+/assets/checkpoints/**/*.ckpt
+/assets/checkpoints/**/*.pt
+/assets/checkpoints/**/*.pkl
+/assets/checkpoints/**/*.zst
+
+# Supplementary Data 1/2 are uploaded independently of this repository.
+/assets/sup_data/
+
+# Local test, plotting, and packaging outputs.
+__pycache__/
+*.py[cod]
+/results/
+/figures/figure_subplot_check/fig5/*.png
+/external_models/RiboNN/RiboNN-1.0.0.zip

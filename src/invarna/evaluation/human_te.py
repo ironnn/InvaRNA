@@ -1,11 +1,11 @@
 """InvaRNA Stage1/Stage2 translation-efficiency inference.
 
 Single GPU:
-    python inference/predict_te.py --model wt --input data.parquet --output pred.csv
+    python inference/predict_te.py --model w0 --input data.parquet --output pred.csv
 
 Multi GPU:
     torchrun --standalone --nproc_per_node=4 inference/predict_te.py \
-        --model wt --input data.parquet --output pred.csv
+        --model w0 --input data.parquet --output pred.csv
 
 Input CSV/parquet files require ``mrna`` and ``utr5_size``. Output CSV files omit the
 large ``mrna`` column and add ``pred_<model>`` unless ``--pred_col`` is supplied.
@@ -17,7 +17,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-CHECKPOINT_ROOT = ROOT / "assets/checkpoints"
+CHECKPOINT_ROOT = Path(
+    os.environ.get("INVARNA_CHECKPOINT_ROOT", ROOT / "assets/checkpoints")
+).expanduser().resolve()
 
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -50,14 +52,14 @@ BACKBONE_CONFIG = ROOT / "backbone" / "configs" / "mamba_motif_moe.yaml"
 BACKBONE_WEIGHTS = CHECKPOINT_ROOT / "backbone" / "pretrained_step13500.pt"
 
 STAGE2_CKPTS = {
-    "world_new07522": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/world_new07522.ckpt",
+    "w2": CHECKPOINT_ROOT / "te_student/w2.ckpt",
     "world_old": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/world_old.ckpt",
-    "world_new": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/world_new.ckpt",
+    "w1": CHECKPOINT_ROOT / "te_student/w1.ckpt",
     "noevo": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/noevo.ckpt",
     "hl_new": CHECKPOINT_ROOT / "half_life/final_half_life.ckpt",
     "old1": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/old1.ckpt",
     "old2": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/old2.ckpt",
-    "wt": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/wt.ckpt",
+    "w0": CHECKPOINT_ROOT / "te_student/w0.ckpt",
     "notaylor": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/notaylor.ckpt",
     "wt_human": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/wt_human.ckpt",
     "taylor_dist": CHECKPOINT_ROOT / "provenance/legacy_registry/te_student/taylor_dist.ckpt",

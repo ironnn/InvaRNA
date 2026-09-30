@@ -1,0 +1,49 @@
+name: Publication checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - name: Install CPU test dependencies
+        run: |
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r requirements-ci.txt
+          python -m pip install -e . --no-deps
+      - name: Asset, license, and path audits
+        run: |
+          python tests/verify_assets.py
+          python external_models/audit_licenses.py
+          python tests/test_relative_paths.py
+      - name: Unit and core smoke checks
+        run: |
+          python -m pytest -q tests/test_tdc.py tests/test_rl_checkpoint_registry.py
+          python tests/smoke/test_pipeline.py --core-only
+      - name: Gene-disjoint split and synthetic-anchor checks
+        run: |
+          python tests/test_data_splits.py \
+            --train assets/smoke/student/human_train.parquet \
+            --validation assets/smoke/student/human_validation.parquet \
+            --test assets/smoke/student/human_test.parquet \
+            --synthetic assets/smoke/synthetic/k80.parquet \
+            --synthetic assets/smoke/synthetic/flow_matching_absolute_teacher.parquet \
+            --synthetic assets/smoke/synthetic/matched_random.parquet
+      - name: Figure source and value checks
+        run: |
+          python figures/fig2/reproduce.py --check-only
+          python tests/test_manuscript_values.py
+          python figures/fig4/audit.py --strict
+      - name: Figure 5 CPU RL smoke
+        run: python tests/smoke/test_fig5_rl_pipeline.py --output-dir "${{ runner.temp }}/invarna_rl_smoke"

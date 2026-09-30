@@ -46,12 +46,10 @@ conda activate mamballm
 python -m pip install -e .
 ```
 
-The figure-only native asset archive is distributed separately from GitHub. It contains
-only the frozen tables needed by the Fig. 2--5 plotting entry points plus small smoke,
-sequence, and provenance files; training corpora, benchmark archives, raw design
-trajectories, and all model weights are intentionally excluded. External baseline
-weights are also excluded; their download metadata and checksums are under
-`external_models/`. Extract or mount the native archive as `assets/`, then verify it:
+The GitHub checkout includes the frozen Fig. 2--5 plotting tables, the human WT
+validation/test parquet files, and small smoke, sequence, and provenance files
+under `assets/`. Supplementary Data 1 and 2 are uploaded independently, not
+included in the GitHub checkout. Verify the Git-tracked assets after cloning:
 
 ```bash
 python tests/verify_assets.py
@@ -59,8 +57,10 @@ python external_models/audit_licenses.py
 python tests/smoke/test_pipeline.py --core-only
 ```
 
-The full checkpoint/inference/routing smoke requires the separately mounted private
-checkpoint archive and CUDA/Triton kernels on an NVIDIA GPU:
+Native model weights are a separate seven-file checkpoint package (556.44 MiB). Install its
+`assets/checkpoints/` tree into the same repository root and verify it as described
+in [`assets/checkpoints/README.md`](assets/checkpoints/README.md). The full
+checkpoint/inference/routing smoke also requires CUDA/Triton kernels on an NVIDIA GPU:
 
 ```bash
 python tests/smoke/test_pipeline.py --device cuda:0
@@ -69,10 +69,16 @@ python tests/smoke/test_pipeline.py --device cuda:0
 `assets/smoke/` contains only small rows copied from the real inputs. Smoke data check
 schemas and code paths; they do not reproduce manuscript statistics.
 
-The GitHub checkout is standalone for code inspection, smoke fixtures, label logic,
-and the lightweight RL smoke test. The published figure redraws are standalone after
-the compact `assets/` directory is placed at the repository root; full model inference
-and training require the separately maintained private archives.
+The GitHub checkout supports code inspection, smoke fixtures, label logic, the
+lightweight RL smoke test, and Fig. 2--5 redraws. Native inference requires the
+separate checkpoint package; full training and most benchmark reruns additionally require
+larger input tables that are not in the GitHub checkout or checkpoint package.
+External baseline weights are obtained from their upstream sources, with download
+metadata and checksums under `external_models/`.
+
+CPU publication checks run in GitHub Actions. To run the same checks locally, install
+`requirements-ci.txt` plus a CPU PyTorch wheel, then follow
+[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
 
 ## Inference
 
@@ -93,6 +99,9 @@ python inference/extract_embeddings.py \
 The canonical deployed TE checkpoint is
 `assets/checkpoints/te_student/final_tdc.ckpt`. Historical filenames and hashes are
 restricted to model-provenance records and the non-canonical provenance archive.
+The updated Fig. 5 design configurations specify a four-model TE ensemble
+(`w0`, `w1`, `w2`, `final_tdc`) and the `hl_new` half-life predictor; this is a new
+configuration, not a claim about the historical manuscript training run.
 
 ## Computational workflow
 

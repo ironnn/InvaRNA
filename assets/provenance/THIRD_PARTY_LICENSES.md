@@ -58,9 +58,10 @@ fails while restricted CodonBERT/RiboNN artifacts remain in the distribution:
 python external_models/audit_licenses.py --strict-public
 ```
 
-The separately uploaded checkpoint/data archive must carry each applicable
-license beside the corresponding pretrained and fine-tuned checkpoint. Its
-`metadata/` directory also carries this notice and the TSV inventory.
+The separately distributed seven-file native checkpoint package contains no
+third-party baseline weights or historical training data. Any future third-party
+weight distribution requires a separate license review and the applicable
+notices alongside those weights.
 
 ## Provenance checked on 2026-09-23
 
