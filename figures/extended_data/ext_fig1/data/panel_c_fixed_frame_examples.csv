@@ -1,0 +1,5 @@
+label,input_utr5,input_cds,input_utr3,left_N_padding,shown_5utr,shown_cds,shown_3utr,right_N_padding,total_length,cds_anchor
+short 5′UTR,50,900,500,950,50,900,500,7600,10000,1000
+typical,500,2000,2500,500,500,2000,2500,4500,10000,1000
+long 5′UTR,1500,2800,2200,0,1000,2800,2200,4000,10000,1000
+long 3′UTR,300,2500,9000,700,300,2500,6500,0,10000,1000

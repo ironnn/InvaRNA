@@ -11,9 +11,10 @@ Current limitations relevant to independent review are:
   protein differs from the first trajectory sequence, whereas the recovered current
   `SequenceEnv` smoke path enforces synonymous actions; the authenticated historical
   source/config needed to resolve this discrepancy was not found;
-- Extended Data Figs. 1–5 currently have explicit placeholder entry points only;
-  their final panel-specific source tables were not approved for the review archive,
-  so the repository does not claim those panels are independently reproduced;
+- Extended Data Figs. 1–5 provide checked panel-level source tables only, without
+  figure-drawing code or raw benchmark/training inputs. For Extended Data Fig. 5,
+  the published table explicitly resolves the two `MUT3` rows in the source
+  workbook; the unreleased historical plotting script still expects an older label;
 - CodonBERT and RiboNN are academic/non-commercial components and block an unrestricted public binary/source bundle unless excluded or separately permitted.
 
 The reviewer-facing limitations are summarized here and in

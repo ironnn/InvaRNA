@@ -13,3 +13,6 @@ bash figures/fig5/reproduce.sh
 
 Panel-level provenance and unresolved raw-data limitations are listed in
 `docs/FIGURE_AUDIT.csv` and `docs/KNOWN_LIMITATIONS.md`.
+
+Extended Data Figs. 1–5 are a data-only release: see
+`figures/extended_data/README.md` for the panel source-table map.

@@ -1,0 +1,16 @@
+rank,species,transcript_count,has_utr5,has_utr3,has_both_utr,cds_only,pct_has_both_utr,display,highlight
+1,salmo_salar,146132,108702,119065,96669,15034,66.2,Salmo salar,False
+2,cyprinus_carpio_carpio,145547,107332,118578,93955,13592,64.6,Cyprinus carpio carpio,False
+3,carassius_auratus,136174,60274,64263,34189,45826,25.1,Carassius auratus,False
+4,oncorhynchus_mykiss,121517,42391,45269,19846,53703,16.3,Oncorhynchus mykiss,False
+5,oncorhynchus_kisutch,118013,63305,66730,41135,29113,34.9,Oncorhynchus kisutch,False
+6,salmo_trutta,116516,64153,68202,43608,27769,37.4,Salmo trutta,False
+7,sinocyclocheilus_grahami,105590,48267,59154,34689,32858,32.9,Sinocyclocheilus grahami,False
+8,oncorhynchus_tshawytscha,105158,53933,58659,34946,27512,33.2,Oncorhynchus tshawytscha,False
+9,sinocyclocheilus_anshuiensis,102759,45373,56657,33483,34212,32.6,Sinocyclocheilus anshuiensis,False
+10,sinocyclocheilus_rhinocerous,99906,20398,20199,19772,79081,19.8,Sinocyclocheilus rhinocerous,False
+11,homo_sapiens,99846,90803,90043,83386,2386,83.5,Homo sapiens,True
+12,hucho_hucho,91789,53670,57888,41143,21374,44.8,Hucho hucho,False
+13,oreochromis_niloticus,75523,33759,38037,20425,24152,27.0,Oreochromis niloticus,False
+14,equus_caballus,74454,71009,70324,68720,1841,92.3,Equus caballus,False
+15,esox_lucius,72029,39767,42890,26625,15997,37.0,Esox lucius,False
