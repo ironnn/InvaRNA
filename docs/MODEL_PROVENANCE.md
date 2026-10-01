@@ -9,12 +9,12 @@ GitHub-safe merely by being present on disk.
 
 | Group | Required artifacts | Local status | Integrity record | Publication action |
 |---|---:|---|---|---|
-| Mamba–Motif-MoE backbone | 1 weight file + architecture/config/tokenizer | Complete | `assets/checkpoints/REQUIRED_SHA256SUMS` | Publish the weight in the seven-file asset package |
+| Mamba–Motif-MoE backbone | 1 weight file + architecture/config/tokenizer | Complete | `assets/checkpoints/REQUIRED_SHA256SUMS` | Compressed weight tracked in Git |
 | Privileged TE teacher | 1 LightGBM model + 5 metadata files + exact source snapshot | Complete | `assets/checkpoints/REQUIRED_SHA256SUMS`; teacher audit | Publish the model only; historical teacher inputs are not distributed |
 | Fig. 3 selected ablations | 3 Stage-2 checkpoints | Complete locally | `assets/checkpoints/ABLATION_SHA256SUMS` | Private provenance only; frozen figure tables need no weights |
 | Human/mouse WT species ablation | 3 conditions x 3 seeds = 9 Stage-2 checkpoints | Complete locally | `assets/checkpoints/SPECIES_ABLATION_SHA256SUMS`; species-ablation audit | Private provenance only; saved prediction tables suffice for the displayed values |
 | Native inference registry | 5 Stage-1 + 14 Stage-2 TE + 2 half-life checkpoints | Complete locally | `assets/checkpoints/INFERENCE_SHA256SUMS` | Private historical inventory; only four TE and one HL weights are distributed |
-| Fig. 5 updated design predictors | Four TE ensemble members and `hl_new` are contained in the native registry | Complete locally; prospective configuration | `assets/checkpoints/REQUIRED_SHA256SUMS` | Publish in the minimal native-checkpoint package |
+| Fig. 5 updated design predictors | Four TE ensemble members and `hl_new` are contained in the native registry | Complete; prospective configuration | `assets/checkpoints/REQUIRED_SHA256SUMS` | Five compressed weights tracked in Git |
 
 Exact native inventory:
 
@@ -144,7 +144,7 @@ python tests/verify_assets.py
 Teacher-source and external-baseline audits require historical full input or
 prediction tables that are not distributed in this release. The teacher audit
 can be run only where the private inputs are available; it is not a check of
-the seven-file weight package.
+the seven tracked native weights.
 
 For the private full historical model inventory, verify `SHA256SUMS`,
 `INFERENCE_SHA256SUMS`, `ABLATION_SHA256SUMS`, and

@@ -58,7 +58,7 @@ fails while restricted CodonBERT/RiboNN artifacts remain in the distribution:
 python external_models/audit_licenses.py --strict-public
 ```
 
-The separately distributed seven-file native checkpoint package contains no
+The seven native checkpoints tracked as compressed files in Git contain no
 third-party baseline weights or historical training data. Any future third-party
 weight distribution requires a separate license review and the applicable
 notices alongside those weights.

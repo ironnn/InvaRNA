@@ -47,9 +47,10 @@ python -m pip install -e .
 ```
 
 The GitHub checkout includes the frozen Fig. 2--5 plotting tables, the human WT
-validation/test parquet files, and small smoke, sequence, and provenance files
-under `assets/`. Supplementary Data 1 and 2 are uploaded independently, not
-included in the GitHub checkout. Verify the Git-tracked assets after cloning:
+validation/test parquet files, seven individually compressed native checkpoints,
+and small smoke, sequence, and provenance files under `assets/`. Supplementary
+Data 1 and 2 are uploaded independently, not included in the GitHub checkout.
+Verify the tracked assets after cloning:
 
 ```bash
 python tests/verify_assets.py
@@ -57,9 +58,9 @@ python external_models/audit_licenses.py
 python tests/smoke/test_pipeline.py --core-only
 ```
 
-Native model weights are a separate seven-file checkpoint package (556.44 MiB). Install its
-`assets/checkpoints/` tree into the same repository root and verify it as described
-in [`assets/checkpoints/README.md`](assets/checkpoints/README.md). The full
+The seven `.zst` files are already under `assets/checkpoints/` in Git (500,739,484
+compressed bytes). Verify and decompress them as described in
+[`assets/checkpoints/README.md`](assets/checkpoints/README.md). The full
 checkpoint/inference/routing smoke also requires CUDA/Triton kernels on an NVIDIA GPU:
 
 ```bash
@@ -70,9 +71,9 @@ python tests/smoke/test_pipeline.py --device cuda:0
 schemas and code paths; they do not reproduce manuscript statistics.
 
 The GitHub checkout supports code inspection, smoke fixtures, label logic, the
-lightweight RL smoke test, and Fig. 2--5 redraws. Native inference requires the
-separate checkpoint package; full training and most benchmark reruns additionally require
-larger input tables that are not in the GitHub checkout or checkpoint package.
+lightweight RL smoke test, Fig. 2--5 redraws, and native inference after local
+decompression. Full training and most benchmark reruns additionally require
+larger input tables that are not in the GitHub checkout.
 External baseline weights are obtained from their upstream sources, with download
 metadata and checksums under `external_models/`.
 

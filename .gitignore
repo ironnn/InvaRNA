@@ -1,8 +1,7 @@
-# Native weights are distributed only after the final manuscript submission.
+# Keep decompressed runtime weights out of Git; the seven .zst files are tracked.
 /assets/checkpoints/**/*.ckpt
 /assets/checkpoints/**/*.pt
 /assets/checkpoints/**/*.pkl
-/assets/checkpoints/**/*.zst
 
 # Supplementary Data 1/2 are uploaded independently of this repository.
 /assets/sup_data/

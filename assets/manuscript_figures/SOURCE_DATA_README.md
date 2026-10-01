@@ -2,9 +2,10 @@
 
 This directory contains only the compact, checksum-controlled inputs consumed by
 the public Fig. 2--5 plotting entry points. Training tables, benchmark archives,
-historical figure packages, raw RL/experimental workbooks, and model weights are
-kept in a separate non-release archive; they are not required to redraw the
-published panels. Small schema/smoke fixtures remain under `assets/smoke/`.
+historical figure packages, and raw RL/experimental workbooks are kept outside
+this repository; they are not required to redraw the published panels. The
+seven native weights are tracked separately as compressed files under
+`assets/checkpoints/`. Small schema/smoke fixtures remain under `assets/smoke/`.
 
 The canonical current-paper inputs are:
 

@@ -16,9 +16,9 @@ portability cleanup. CodonBERT and RiboNN carry academic/non-commercial restrict
 the strict release audit fails until those artifacts are excluded from an unrestricted
 public bundle or explicit redistribution permission is obtained.
 
-Large training data and native checkpoints are deliberately separated into `assets/`,
-which is not uploaded to GitHub. External baseline weights are **not** part of the
-publication asset archive at all. Download them only when rerunning an external-model
+Large training data are not uploaded to GitHub; seven compressed native
+checkpoints are under `assets/checkpoints/` in Git. External baseline weights
+are **not** part of this repository. Download them only when rerunning an external-model
 benchmark, using the exact source/version/license records in `DOWNLOADS.tsv` and the
 per-file checksums in `CHECKSUMS.tsv`. The plotting workflows use committed prediction
 tables and therefore do not require these weights.
