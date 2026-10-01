@@ -7,6 +7,10 @@ sequences are provided through the independently uploaded Supplementary Data 2,
 not this Git repository. The WT starting sequences and RL smoke fixture remain
 in `assets/sequences/` and `assets/smoke/`.
 
+The supported one-command redraw is `bash figures/fig5/reproduce.sh`, which runs
+the three C/D/E plotting scripts below. No full-panel raw-data audit entry point
+is distributed because the F5A/B historical inputs are not in this Git checkout.
+
 Redraw the Fig. 5C panel from the frozen public tables with:
 
 ```bash

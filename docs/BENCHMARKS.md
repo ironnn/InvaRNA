@@ -7,11 +7,18 @@ The recovered task-specific probe parameters, candidate-selection rule, split un
 and random seed are recorded in `benchmarks/configs/fig2.yaml` and
 `benchmarks/configs/representation_transfer.yaml`.
 
+The Git checkout contains the frozen Fig. 2--5 plotting tables, the human WT
+validation/test splits, and seven compressed InvaRNA-native checkpoints. It does
+not contain the full benchmark input and prediction archives, representation
+embeddings, external baseline weights, or the optional ablation checkpoints.
+Commands below that need those omitted files are explicitly marked; the main
+`figures/fig*/reproduce.sh` entry points use the committed plotting tables.
+
 ## Fig. 2 frozen-representation benchmark
 
 The compact finalized tables are included under
-`assets/manuscript_figures/fig2_compact/` in the GitHub checkout. Full labels and
-cached embeddings are outside the figure-only checkout. Reproduce the
+`assets/manuscript_figures/fig2_compact/` in the GitHub checkout. The full probe
+labels and cached embeddings are not in Git. Reproduce the
 submitted computational figure and validate all displayed values with:
 
 ```bash
@@ -24,12 +31,13 @@ task. Test labels are not used for selection. The finalized panel uses only the
 approved backbone comparisons recorded in the Fig. 2 config.
 
 External-model benchmark code is under `external_models/`. Exact training tables,
-upstream weights, and selected TE checkpoints are outside the figure-only checkout.
+external baseline weights, and their selected fine-tuned checkpoints are not in Git;
+the seven included native InvaRNA checkpoints are a separate inventory.
 See `benchmarks/configs/external_llm_te.yaml` and `external_models/README.md` for
 the input and download records.
 
 The saved selected-checkpoint predictions are retained in a private benchmark
-archive, not in this seven-weight release. Where those tables are available,
+archive, not in Git. Only where those prediction tables are supplied,
 the reported test R2 values can be recalculated without downloading models:
 
 ```bash
@@ -37,8 +45,9 @@ python benchmarks/heldout_human_te/verify_external_models.py \
   --output outputs/external_llm_test_r2.csv
 ```
 
-Full checkpoint inference is model-specific because the upstream dependency stacks are
-incompatible.  In the matching environment, run for example:
+Full external-model checkpoint inference additionally requires the upstream weights
+and model-specific dependencies. After obtaining them in the matching environment,
+run for example:
 
 ```bash
 python external_models/inference/evaluate_te_checkpoint.py \
@@ -57,14 +66,18 @@ prediction tables and larger training inputs are not distributed in this release
 
 ## Fig. 3b cross-species benchmark
 
-The current paper shows five RPFdb species for InvaRNA, RiboNN, and UTR-LM. Recompute
-all 15 Spearman correlations directly from the preserved model-specific predictions:
+The current paper shows five RPFdb species for InvaRNA, RiboNN, and UTR-LM. The
+displayed Fig. 3B summary and merged plotting table are in
+`assets/manuscript_figures/full/fig3_current_nm/`, so the main Fig. 3 redraw works
+from Git. The three separate `F3B_pred_*.csv` files required to recompute all 15
+Spearman correlations are not in Git. After supplying those historical files in
+that directory, run:
 
 ```bash
 python figures/fig3/fig3b_multispecies.py
 ```
 
-The entry intentionally reads the three prediction tables separately. The historical
+This entry intentionally reads the three prediction tables separately. The historical
 RiboNN table has 17,997 rows while the other two have 18,000; using only their merged
 intersection would slightly perturb the displayed model-specific correlations.
 
@@ -75,10 +88,12 @@ WT training, and human plus all mouse WT training. Each condition has exactly th
 declared seeds (`22222`, `3407`, and `9713`); every checkpoint is selected using only
 the human validation R² and evaluated on the human-only test split.
 
-The exact input tables, saved epoch metrics, selected prediction files, and original
-checkpoint copies are in the local `assets/benchmark_data/rbh_sensitivity/full/` bundle. Runtime
-checkpoint copies are under `assets/checkpoints/ablations/rbh_sensitivity/`, with one
-training YAML per run under `sft/configs/species_ablation/`.
+The nine training YAML files under `sft/configs/species_ablation/` are in Git. The
+exact input tables, saved epoch metrics, and selected prediction files under
+`assets/benchmark_data/rbh_sensitivity/full/`, the nine runtime checkpoints under
+`assets/checkpoints/ablations/rbh_sensitivity/`, and the historical RBH reference
+table are not. They remain in the author's private archive. Only after restoring
+those inputs can the full audit run:
 
 ```bash
 python benchmarks/rbh_sensitivity/audit.py
@@ -86,8 +101,8 @@ python benchmarks/rbh_sensitivity/audit.py
 
 This recomputes all nine validation/test R² values, paired tests, training/split
 composition, RBH exclusion, best-validation epoch selection, checkpoint hashes, and
-legacy-checkpoint loading. It also validates the committed per-run and summary tables
-under `assets/manuscript_figures/results/`.
+legacy-checkpoint loading. It also validates per-run and summary tables under
+`assets/manuscript_figures/results/`; those tables are not in Git either.
 
 ## Fig. 3g external MPRA
 
@@ -97,7 +112,12 @@ Spearman correlation within each library, then the arithmetic mean and sample
 standard deviation (`ddof=1`) across the ten correlations. The exact parameter and
 checksum record is `benchmarks/configs/fig3_panel_g.yaml`.
 
-Fast exact reproduction from the preserved manuscript predictions:
+The main Fig. 3 redraw uses the committed
+`assets/manuscript_figures/full/fig3_current_nm/F3G_external_MPRA_spearman_by_sample.csv`.
+The 3,000-row-per-library panel input, 100,000-row-per-library source input, and model-specific
+prediction files named in `benchmarks/configs/fig3_panel_g.yaml` are not in Git.
+To recalculate the historical ten-library correlations from those private inputs
+after supplying them, run:
 
 ```bash
 python figures/fig3/fig3g_mpra.py
@@ -108,14 +128,16 @@ PNG, and PDF under `results/fig3_panel_g/`. Expected mean +/- SD values are UTR-
 0.085538806 +/- 0.119267787, RiboNN 0.259656219 +/- 0.094617926, and InvaRNA
 0.353215975 +/- 0.093279511.
 
-The canonical RiboNN value is computed from the preserved 100,000-row-per-library
+The canonical RiboNN value was computed from the preserved 100,000-row-per-library
 submission prediction file using the original sample-then-drop-missing order. The
-separate 30,000-row checkpoint rerun is retained as runtime evidence and gives
-0.259762102 +/- 0.094540644; it is not the manuscript source. The May 22 combined
-figure is retained under `figure_data/fig3/combined_20260522/` as historical-only.
+separate 30,000-row checkpoint rerun is retained privately as runtime evidence and
+gives 0.259762102 +/- 0.094540644; it is not the manuscript source. The May 22
+combined figure under `figure_data/fig3/combined_20260522/` is historical-only
+and is not in Git.
 
-Checkpoint inference on the exact 30,000 sequences is available separately because
-it is GPU intensive and the external models require their original dependencies:
+Checkpoint inference on the exact 30,000 sequences requires the omitted MPRA
+input table, the relevant external weights, and their model-specific dependencies.
+After supplying these, the rerun commands are:
 
 ```bash
 python benchmarks/mpra/predict.py --model invarna \
