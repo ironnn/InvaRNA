@@ -24,7 +24,7 @@ bash figures/fig5/reproduce.sh
 | `inference/` | Frozen TE/half-life inference, embeddings, and routing extraction |
 | `benchmarks/` | Held-out human, RPFdb, MPRA, representation-transfer, RBH, and ablation evaluations |
 | `external_models/` | External baseline implementations and license evidence |
-| `figures/` | Fig. 2–5 and Extended Data orchestration, analysis, and plotting |
+| `figures/` | Fig. 2–5 analysis and plotting; Extended Data panel-level source tables |
 | `tests/` | Smoke, split-integrity, checkpoint, and manuscript-value checks |
 | `src/invarna/` | Import-compatible internal package used by the public entry points and released checkpoints |
 | `docs/` | Reproducibility, provenance, figure audit, licensing, and known limitations |
@@ -71,9 +71,9 @@ python tests/smoke/test_pipeline.py --device cuda:0
 schemas and code paths; they do not reproduce manuscript statistics.
 
 The GitHub checkout supports code inspection, smoke fixtures, label logic, the
-lightweight RL smoke test, Fig. 2--5 redraws, and native inference after local
-decompression. Full training and most benchmark reruns additionally require
-larger input tables that are not in the GitHub checkout.
+lightweight RL smoke test, Fig. 2--4 and selected Fig. 5 panel redraws, and native
+inference after local decompression. Full training and most benchmark reruns
+additionally require larger input tables that are not in the GitHub checkout.
 External baseline weights are obtained from their upstream sources, with download
 metadata and checksums under `external_models/`.
 
@@ -106,8 +106,7 @@ configuration, not a claim about the historical manuscript training run.
 
 ## Computational workflow
 
-The repository preserves the manuscript workflow without changing algorithms or
-parameters:
+The repository provides implementations of the following manuscript workflows:
 
 1. Ensembl mature-mRNA preprocessing and fixed CDS@1000 framing.
 2. 274-species Mamba–Motif-MoE masked-language-model pretraining.
@@ -153,7 +152,7 @@ expensive training must be rerun to verify reported values.
 | Fig. 2 | `figures/fig2/reproduce.sh` | `assets/manuscript_figures/fig2_compact/` |
 | Fig. 3 | `figures/fig3/reproduce.sh` | `assets/manuscript_figures/full/fig3_current_nm/` |
 | Fig. 4 | `figures/fig4/reproduce.sh` | `assets/manuscript_figures/fig4_compact/` |
-| Fig. 5 | `figures/fig5/reproduce.sh` | selected tables under `assets/manuscript_figures/full/fig5/` |
+| Fig. 5c–e | `figures/fig5/reproduce.sh` | selected tables under `assets/manuscript_figures/full/fig5/` |
 | Extended Data Figs. 1–5 | `figures/extended_data/README.md` | panel-level source tables only; plotting code is not distributed |
 
 Panel-level closure and unresolved raw-data provenance are recorded in
