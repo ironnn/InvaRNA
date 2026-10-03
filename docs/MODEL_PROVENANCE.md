@@ -25,8 +25,8 @@ Exact native inventory:
   `only_taylor_beidian`, `taylor_dist`, `taylor_dist_e14`, `taylor_dist_e21`,
   `w0`, `w1`, `w2`, `world_old`, `wt_human`.
 - Half-life registry: `hl0704`, `hl_new`.
-- Selected Fig. 3 ablations: `ablation_1k_org_ep22`,
-  `ablation_2r_org_ep28`, `ablation_3kl_tay_ep46`.
+- Selected Fig. 3 ablations: `ablation_1k_org`,
+  `ablation_2r_org`, `ablation_3kl_tay`.
 - Human/mouse WT species ablation: `human`, `human_mouse_rbh_filtered`, and
   `human_mouse_full`, each for seeds `22222`, `3407`, and `9713`.
 
@@ -42,9 +42,9 @@ The three selected Fig. 3 ablations map to the authenticated runs as follows:
 
 | Checkpoint | Experimental condition | Held-out-human R² |
 |---|---|---:|
-| `ablation_2r_org_ep28.ckpt` | matched-random, absolute teacher targets | 0.7292183 |
-| `ablation_1k_org_ep22.ckpt` | K80, absolute teacher targets | 0.7346692 |
-| `ablation_3kl_tay_ep46.ckpt` | K80, WT-anchored distance-scaled TDC | 0.7393672 |
+| `ablation_2r_org.ckpt` | matched-random, absolute teacher targets | 0.7292183 |
+| `ablation_1k_org.ckpt` | K80, absolute teacher targets | 0.7346692 |
+| `ablation_3kl_tay.ckpt` | K80, WT-anchored distance-scaled TDC | 0.7393672 |
 
 `InvaRNA0412.ckpt` and `taylor_dist_e14.ckpt` have different serialized-file hashes
 but identical 357-key state dictionaries and identical held-out predictions in the
