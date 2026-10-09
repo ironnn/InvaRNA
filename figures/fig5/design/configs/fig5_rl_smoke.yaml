@@ -8,7 +8,6 @@ reference_sequence: assets/sequences/ngf_wt.fa
 objectives:
   te_weight: 0.70
   half_life_weight: 0.30
-  auxiliary_terms_enabled: []
 evaluator:
   type: deterministic_smoke_proxy
   warning: >-

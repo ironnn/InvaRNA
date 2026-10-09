@@ -22,6 +22,9 @@ from Bio.Seq import Seq
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "figures/fig5/design/source"
 DEFAULT_CONFIG = ROOT / "figures/fig5/design/configs/fig5_rl_smoke.yaml"
+sys.path.insert(0, str(ROOT / "src"))
+
+from invarna.design.reward import primary_reward, robust_te_reward
 
 
 def load_copied_implementation():
@@ -41,17 +44,21 @@ class SmokeTEHLEvaluator:
         self.wild_type = wild_type
         self.te_weight = te_weight
         self.half_life_weight = half_life_weight
-        self.wt_gc = self._fraction(wild_type, "GC")
-        self.wt_t = self._fraction(wild_type, "T")
+        # Four TE-like outputs and one HL-like output, with fixed toy coefficients.
+        self.coefficients = np.random.default_rng(1234).normal(size=(5, len(wild_type), 4))
+        self.wt_scores = self._scores(wild_type)
 
-    @staticmethod
-    def _fraction(sequence: str, alphabet: str) -> float:
-        return sum(sequence.count(base) for base in alphabet) / len(sequence)
+    def _scores(self, sequence: str) -> np.ndarray:
+        indices = np.array(["ACGT".index(base) for base in sequence])
+        return self.coefficients[:, np.arange(len(sequence)), indices].sum(axis=1)
 
     def __call__(self, sequence: str, *_unused) -> tuple[float, dict[str, float]]:
-        te_delta = (self._fraction(sequence, "GC") - self.wt_gc) / 0.01
-        half_life_delta = (self.wt_t - self._fraction(sequence, "T")) / 0.01
-        reward = self.te_weight * te_delta + self.half_life_weight * half_life_delta
+        z_scores = np.clip((self._scores(sequence) - self.wt_scores) / 2.0, -3.0, 3.0)
+        te_delta = robust_te_reward(z_scores[:4])
+        half_life_delta = float(z_scores[4])
+        reward = primary_reward(
+            z_scores[:4], half_life_delta, self.te_weight, self.half_life_weight
+        )
         return float(reward), {
             "smoke_te_delta": float(te_delta),
             "smoke_half_life_delta": float(half_life_delta),
@@ -101,6 +108,7 @@ def main() -> None:
         float(objective["te_weight"]),
         float(objective["half_life_weight"]),
     )
+    assert evaluator(wt)[0] == 0.0
     env = SequenceEnv(
         init_seq=wt,
         genename="NGF",
@@ -165,6 +173,11 @@ def main() -> None:
     assert changed and np.isfinite(loss)
 
     candidate, reward, metrics = max(candidates, key=lambda item: item[1])
+    sequence_reward, score_metrics = evaluator(candidate)
+    assert np.isclose(
+        sequence_reward,
+        score_metrics["reward_contrib_te"] + score_metrics["reward_contrib_stability"],
+    )
     assert len(candidate) == len(wt)
     assert candidate[:3] == wt[:3] and candidate[-3:] == wt[-3:]
     assert str(Seq(candidate).translate()) == str(Seq(wt).translate())

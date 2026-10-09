@@ -4,6 +4,9 @@ import ast
 from pathlib import Path
 
 import yaml
+import pytest
+
+from invarna.design.reward import primary_reward
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,3 +52,22 @@ def test_fig5_configs_use_four_te_models() -> None:
         assert config["te_models"] == TE_MODELS
         assert config["half_life_model"] == "hl_new"
         assert len(set(config["te_models"])) == 4
+        assert set(config["reward"]) == {
+            "te_weight", "half_life_weight", "te_disagreement_weight",
+            "te_disagreement_threshold", "z_clip",
+        }
+        assert config["filters"] == {"local_window_nt": 15}
+
+
+@pytest.mark.parametrize(
+    "te_scores, half_life, expected",
+    [
+        ([0, 0, 0, 0], 0, 0),
+        ([1, 1, 1, 1], 0, 0.70),
+        ([0, 0, 0, 0], 1, 0.30),
+        ([0, 0, 1, 1], 0, 0.35),  # No penalty at std == 0.5.
+        ([-1, -1, 1, 1], 0, -0.105),  # Disagreement remains inside the TE term.
+    ],
+)
+def test_public_te_half_life_objective(te_scores, half_life, expected) -> None:
+    assert primary_reward(te_scores, half_life) == pytest.approx(expected)

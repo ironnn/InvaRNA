@@ -103,6 +103,10 @@ restricted to model-provenance records and the non-canonical provenance archive.
 The updated Fig. 5 design configurations specify a four-model TE ensemble
 (`w0`, `w1`, `w2`, `final_tdc`) and the `hl_new` half-life predictor; this is a new
 configuration, not a claim about the historical manuscript training run.
+The design objective is `0.70 × robust_TE + 0.30 × z_HL`,
+with equally weighted TE models and a model-disagreement penalty inside `robust_TE`.
+The reward formula, action constraints, and CPU smoke command are documented
+in [`figures/fig5/README.md`](figures/fig5/README.md#rl-workflow).
 
 ## Computational workflow
 

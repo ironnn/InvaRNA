@@ -6,7 +6,7 @@ Current limitations relevant to independent review are:
 - the original 274-species Ensembl release-111 FASTA is not redistributed; users must download the relevant Ensembl mature-mRNA releases and rebuild their own corpus;
 - an authenticated Flow-Matching model-training implementation was not recovered, although the frozen pools and the exact UTR-replacement consumption logic are preserved;
 - several Fig. 4 experimental panels are reproducible from curated summary tables rather than complete raw measurements, and some tested Fig. 4 construct sequences still require author supply;
-- the exact historical all-task Fig. 5 production launcher/config was not recovered; the copied early TE/half-life PPO source and NGF smoke chain are retained without rewriting the algorithm;
+- the exact historical all-task Fig. 5 production launcher/config was not recovered; the public release provides a TE/half-life objective, environment/PPO code, and an NGF smoke chain. This workflow does not reproduce the historical candidate-generation trace;
 - the recovered 13,653-row NGF trajectory contains 177 sequences whose translated
   protein differs from the first trajectory sequence, whereas the recovered current
   `SequenceEnv` smoke path enforces synonymous actions; the authenticated historical
