@@ -88,8 +88,7 @@ archive under `assets/manuscript_figures/fig2_compact/`; the backbone checkpoint
 
 `figure_data/` contains the recovered F3-F5 plotting/source inputs. The current
 2026-08-05 `nm.pdf` package is canonical; July 17 and May 22 are retained as
-historical-only. Use `docs/FIGURE_AUDIT.csv` to see which panels
-are fully traced, hardcoded, or missing raw provenance.
+historical-only.
 
 The selected Evo2 full-parameter run is `evo2_8k`: first 8,000 nt, current
 `nm.pdf` comparison, test R2 0.730300.

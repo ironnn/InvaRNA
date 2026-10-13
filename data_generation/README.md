@@ -9,5 +9,4 @@ It never serves as the location of manuscript-frozen datasets; those live under
 - `label_generation/`: privileged-teacher feature extraction/scoring and WT-anchored TDC label construction.
 
 The recovered repository contains the Flow-Matching pool-consumption/generation step,
-but not an authenticated Flow-Matching model-training implementation. No replacement
-implementation is fabricated; see `docs/KNOWN_LIMITATIONS.md`.
+but not an authenticated Flow-Matching model-training implementation.

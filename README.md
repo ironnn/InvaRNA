@@ -1,6 +1,6 @@
 # InvaRNA
 
-Code and frozen computational assets accompanying the anonymous manuscript
+Code and computational assets accompanying the manuscript
 “InvaRNA enables transferable mRNA sequence–function modeling from sparse functional
 measurements.”
 
@@ -158,10 +158,6 @@ expensive training must be rerun to verify reported values.
 | Fig. 4 | `figures/fig4/reproduce.sh` | `assets/manuscript_figures/fig4_compact/` |
 | Fig. 5c–e | `figures/fig5/reproduce.sh` | selected tables under `assets/manuscript_figures/full/fig5/` |
 | Extended Data Figs. 1–5 | `figures/extended_data/README.md` | panel-level source tables only; plotting code is not distributed |
-
-Panel-level closure and unresolved raw-data provenance are recorded in
-[`docs/FIGURE_AUDIT.csv`](docs/FIGURE_AUDIT.csv) and
-[`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md).
 
 ## License
 
