@@ -1,3 +1,6 @@
+# Local citation metadata.
+/CITATION.cff
+
 # Keep decompressed runtime weights out of Git; the seven .zst files are tracked.
 /assets/checkpoints/**/*.ckpt
 /assets/checkpoints/**/*.pt
